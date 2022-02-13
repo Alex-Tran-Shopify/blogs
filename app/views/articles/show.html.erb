@@ -1,6 +1,4 @@
-<% flash.each do |name, msg| %>
-  <%= msg %>
-<% end %>
+<%= render 'layouts/messages' %>
 
 <h1>this is one of the article</h1>
 <p>ID: <%= @article.id%></p>
