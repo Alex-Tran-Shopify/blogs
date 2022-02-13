@@ -5,13 +5,39 @@ class ArticlesController < ActionController::Base
   def index 
     @articles = Article.all
   end
-  def new 
 
+  def new 
+    @article = Article.new
   end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
   def create 
     @article = Article.new(params.require(:article).permit(:title, :description))
-    @article.save
-    # render plain: @article.inspect
-    redirect_to article_path(@article)
+    if @article.save
+      flash[:notice] = "Article was create successfully."
+      redirect_to article_path(@article)
+    else
+      render 'new'
+    end
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description))
+      flash[:notice] = "Article update"
+      redirect_to article_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    puts "here in the delete"
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to articles_path
   end
 end
