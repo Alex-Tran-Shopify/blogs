@@ -6,6 +6,7 @@
     <% end %>
   </ul>
 <% end %>
+Author: <td><%= @article.user.username if @article.user %><td>
 
 <%= form_with(model: @article, local: true) do |f| %>
   <p>
